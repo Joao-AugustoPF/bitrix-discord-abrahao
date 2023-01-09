@@ -47,7 +47,7 @@ export default async function handler(req, res) {
                         await axios.post(
                             "https://discordapp.com/api/webhooks/1062011254841016442/j_AKYw44BX7IZhpHZRo6vOTdHqcBD4AcMEv3tg22sBcFeJhfMEuIp7k4fq9mg72_aG2J",
                             {
-                                content: `***⚠️⚠️⚠️ATENÇÃO @Suporte ⚠️⚠️⚠️ PRÉ GOLIVE*** \n**Restaurante:** -> ${
+                                content: `***⚠️⚠️⚠️ATENÇÃO @Suporte ⚠️⚠️⚠️ GOLIVE*** \n**Restaurante:** -> ${
                                     result.TITLE + ' <-'
                                 } \n**Info:** ${
                                     result.UF_CRM_1673270284034
