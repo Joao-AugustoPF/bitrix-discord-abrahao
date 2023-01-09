@@ -9,27 +9,34 @@ export default async function handler(req, res) {
     //const data = await axios.get("https://oimenu.bitrix24.com.br/rest/24088/y6nxi5u1y6p3l6ta/events.json")
     switch (req.body.event) {
         case "ONCRMDEALUPDATE":
-           await bitrix.deals
+            await bitrix.deals
                 .get(req.body["data[FIELDS][ID]"])
-                .then( async({ result }) => {
+                .then(async ({ result }) => {
                     if (result.STAGE_ID === "EXECUTING") {
                         console.log("passei aqui");
+                        const user = await axios.post(
+                            `https://b24-iqw9zu.bitrix24.com.br/rest/1/9c4w1aiyk0wzhplp/user.get.json?ID=${result.UF_CRM_1673289796}`
+                        );
+                        const userData = JSON.parse(
+                            JSON.stringify(user.data.result[0].NAME)
+                        );
                         await axios.post(
                             "https://discordapp.com/api/webhooks/1060977635393544312/GNMePjBnzXEX96PbyT1QRPwwcdjnQTvjzr5Tdr-KHolZWsgqC6DJPOFt8olwyjzKZ39n",
                             {
-                                content: `⚠️⚠️⚠️ATENÇÃO @Suporte ⚠️⚠️⚠️ PRÉ GOLIVE - ${
-                                    result.TITLE
-                                } - Info: ${
+                                content: `***⚠️⚠️⚠️ATENÇÃO @Suporte ⚠️⚠️⚠️ PRÉ GOLIVE*** \n**Restaurante:** -> ${
+                                    result.TITLE + ' <-'
+                                } \n**Info:** ${
                                     result.UF_CRM_1673270284034
-                                } - Tablets: ${
+                                } \n**Tablets:** ${
                                     result.UF_CRM_1673272410518
                                         ? `${result.UF_CRM_1673272410518}`
                                         : "Não"
-                                } - Possui Pocket?: ${
+                                } \n**Possui Pocket?:** ${
                                     result.UF_CRM_1673272763373 === "1"
                                         ? "Sim"
                                         : "Não"
-                                }`,
+                                } \n**Integração:** ${result.UF_CRM_1673289920667} \n**Quem fez?:** ${userData ? userData : ""}
+                                `,
                             }
                         );
                         console.log("executei");
@@ -40,19 +47,20 @@ export default async function handler(req, res) {
                         await axios.post(
                             "https://discordapp.com/api/webhooks/1062011254841016442/j_AKYw44BX7IZhpHZRo6vOTdHqcBD4AcMEv3tg22sBcFeJhfMEuIp7k4fq9mg72_aG2J",
                             {
-                                content: `⚠️⚠️⚠️ATENÇÃO ⚠️⚠️⚠️ GO LIVE!!! - ${
-                                    result.TITLE
-                                } - Info: ${
+                                content: `***⚠️⚠️⚠️ATENÇÃO @Suporte ⚠️⚠️⚠️ PRÉ GOLIVE*** \n**Restaurante:** -> ${
+                                    result.TITLE + ' <-'
+                                } \n**Info:** ${
                                     result.UF_CRM_1673270284034
-                                } - Tablets: ${
+                                } \n**Tablets:** ${
                                     result.UF_CRM_1673272410518
                                         ? `${result.UF_CRM_1673272410518}`
                                         : "Não"
-                                } - Possui Pocket?: ${
+                                } \n**Possui Pocket?:** ${
                                     result.UF_CRM_1673272763373 === "1"
                                         ? "Sim"
                                         : "Não"
-                                }`,
+                                } \n**Integração:** ${result.UF_CRM_1673289920667} \n**Quem fez?:** ${userData ? userData : ""}
+                                `,
                             }
                         );
                         console.log("executei");
