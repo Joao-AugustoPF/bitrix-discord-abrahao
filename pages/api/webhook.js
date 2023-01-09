@@ -11,10 +11,10 @@ export default async function handler(req, res) {
         case "ONCRMDEALUPDATE":
            await bitrix.deals
                 .get(req.body["data[FIELDS][ID]"])
-                .then(({ result }) => {
+                .then( async({ result }) => {
                     if (result.STAGE_ID === "EXECUTING") {
                         console.log("passei aqui");
-                        axios.post(
+                        await axios.post(
                             "https://discordapp.com/api/webhooks/1060977635393544312/GNMePjBnzXEX96PbyT1QRPwwcdjnQTvjzr5Tdr-KHolZWsgqC6DJPOFt8olwyjzKZ39n",
                             {
                                 content: `⚠️⚠️⚠️ATENÇÃO @Suporte ⚠️⚠️⚠️ PRÉ GOLIVE - ${
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
 
                     if (result.STAGE_ID === "UC_L5XUJQ") {
                         console.log("passei aqui");
-                        axios.post(
+                        await axios.post(
                             "https://discordapp.com/api/webhooks/1062011254841016442/j_AKYw44BX7IZhpHZRo6vOTdHqcBD4AcMEv3tg22sBcFeJhfMEuIp7k4fq9mg72_aG2J",
                             {
                                 content: `⚠️⚠️⚠️ATENÇÃO ⚠️⚠️⚠️ GO LIVE!!! - ${
