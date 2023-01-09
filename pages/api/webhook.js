@@ -7,10 +7,10 @@ const bitrix = Bitrix(
 
 export default async function handler(req, res) {
     //const data = await axios.get("https://oimenu.bitrix24.com.br/rest/24088/y6nxi5u1y6p3l6ta/events.json")
-    bitrix.deals.get(req.body["data[FIELDS][ID]"]).then(({ result }) => {
+    await bitrix.deals.get(req.body["data[FIELDS][ID]"]).then(({ result }) => {
         if (result.STAGE_ID === "EXECUTING") {
             console.log("passei aqui");
-            axios.post(
+             axios.post(
                 "https://discordapp.com/api/webhooks/1060977635393544312/GNMePjBnzXEX96PbyT1QRPwwcdjnQTvjzr5Tdr-KHolZWsgqC6DJPOFt8olwyjzKZ39n",
                 {
                     content: `⚠️⚠️⚠️ATENÇÃO @Suporte ⚠️⚠️⚠️ PRÉ GOLIVE - ${
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     });
     switch (req.body.event) {
         case "ONCRMDEALUPDATE":
-            bitrix.deals
+           await bitrix.deals
                 .get(req.body["data[FIELDS][ID]"])
                 .then(({ result }) => {
                     if (result.STAGE_ID === "EXECUTING") {
