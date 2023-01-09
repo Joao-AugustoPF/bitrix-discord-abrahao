@@ -12,14 +12,16 @@ export default async function handler(req, res) {
             await bitrix.deals
                 .get(req.body["data[FIELDS][ID]"])
                 .then(async ({ result }) => {
+                    const user = await axios.post(
+                        `https://b24-iqw9zu.bitrix24.com.br/rest/1/9c4w1aiyk0wzhplp/user.get.json?ID=${result.UF_CRM_1673289796}`
+                    );
+                    const userData = JSON.parse(
+                        JSON.stringify(user.data.result[0].NAME)
+                    );
+
+
                     if (result.STAGE_ID === "EXECUTING") {
                         console.log("passei aqui");
-                        const user = await axios.post(
-                            `https://b24-iqw9zu.bitrix24.com.br/rest/1/9c4w1aiyk0wzhplp/user.get.json?ID=${result.UF_CRM_1673289796}`
-                        );
-                        const userData = JSON.parse(
-                            JSON.stringify(user.data.result[0].NAME)
-                        );
                         await axios.post(
                             "https://discordapp.com/api/webhooks/1060977635393544312/GNMePjBnzXEX96PbyT1QRPwwcdjnQTvjzr5Tdr-KHolZWsgqC6DJPOFt8olwyjzKZ39n",
                             {
@@ -44,12 +46,6 @@ export default async function handler(req, res) {
 
                     if (result.STAGE_ID === "UC_L5XUJQ") {
                         console.log("passei aqui");
-                        const user = await axios.post(
-                            `https://b24-iqw9zu.bitrix24.com.br/rest/1/9c4w1aiyk0wzhplp/user.get.json?ID=${result.UF_CRM_1673289796}`
-                        );
-                        const userData = JSON.parse(
-                            JSON.stringify(user.data.result[0].NAME)
-                        );
                         await axios.post(
                             "https://discordapp.com/api/webhooks/1062011254841016442/j_AKYw44BX7IZhpHZRo6vOTdHqcBD4AcMEv3tg22sBcFeJhfMEuIp7k4fq9mg72_aG2J",
                             {
