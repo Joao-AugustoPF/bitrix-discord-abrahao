@@ -7,7 +7,7 @@ const bitrix = Bitrix(
 
 export default async function handler(req, res) {
     //const data = await axios.get("https://oimenu.bitrix24.com.br/rest/24088/y6nxi5u1y6p3l6ta/events.json")
-
+    console.log(req.body)
     switch (req.body.event) {
         case "ONCRMDEALUPDATE":
             bitrix.deals
@@ -55,5 +55,6 @@ export default async function handler(req, res) {
     }
 
     //console.log(req.body)
-    res.status(200).json({ page: 'Está é a página dos webhooks' });
+    res.status(200).json({ page: req.body});
+    res.end();
 }
