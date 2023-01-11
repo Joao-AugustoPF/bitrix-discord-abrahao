@@ -2,18 +2,17 @@ import axios from "axios";
 import Bitrix from "@2bad/bitrix";
 
 const bitrix = Bitrix(
-    "https://b24-iqw9zu.bitrix24.com.br/rest/1/9c4w1aiyk0wzhplp/"
+    `${process.env.NEXT_APP_BITRIX_APP}`
 );
 
 export default async function handler(req, res) {
-    //const data = await axios.get("https://oimenu.bitrix24.com.br/rest/24088/y6nxi5u1y6p3l6ta/events.json")
     switch (req.body.event) {
         case "ONCRMDEALUPDATE":
             await bitrix.deals
                 .get(req.body["data[FIELDS][ID]"])
                 .then(async ({ result }) => {
                     const user = await axios.post(
-                        `https://b24-iqw9zu.bitrix24.com.br/rest/1/9c4w1aiyk0wzhplp/user.get.json?ID=${result.UF_CRM_1673289796}`
+                        `${process.env.NEXT_APP_BITRIX_URL_USER}/user.get.json?ID=${result.UF_CRM_1673289796}`
                     );
                     const userData = JSON.parse(
                         JSON.stringify(user.data.result[0].NAME)
@@ -23,7 +22,7 @@ export default async function handler(req, res) {
                     if (result.STAGE_ID === "EXECUTING") {
                         console.log("passei aqui");
                         await axios.post(
-                            "https://discordapp.com/api/webhooks/1060977635393544312/GNMePjBnzXEX96PbyT1QRPwwcdjnQTvjzr5Tdr-KHolZWsgqC6DJPOFt8olwyjzKZ39n",
+                            `${process.env.NEXT_APP_DISCORD_FIRST}`,
                             {
                                 content: `***⚠️⚠️⚠️ATENÇÃO @Suporte ⚠️⚠️⚠️ PRÉ GOLIVE*** \n**Restaurante:** -> ${
                                     result.TITLE + ' <-'
@@ -47,7 +46,7 @@ export default async function handler(req, res) {
                     if (result.STAGE_ID === "UC_L5XUJQ") {
                         console.log("passei aqui");
                         await axios.post(
-                            "https://discordapp.com/api/webhooks/1062011254841016442/j_AKYw44BX7IZhpHZRo6vOTdHqcBD4AcMEv3tg22sBcFeJhfMEuIp7k4fq9mg72_aG2J",
+                            `${process.env.NEXT_APP_DISCORD_SECOND}`,
                             {
                                 content: `***⚠️⚠️⚠️ATENÇÃO @Suporte ⚠️⚠️⚠️ GOLIVE*** \n**Restaurante:** -> ${
                                     result.TITLE + ' <-'
